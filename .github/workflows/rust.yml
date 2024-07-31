@@ -2,10 +2,10 @@ name: Build
 on:
   workflow_dispatch:
   push:
-    branches: [master, workflow-test]
+    branches: [main, workflow-test]
     tags: ["v*"]
   pull_request:
-    branches: [master]
+    branches: [main]
 env:
   ARTIFACT_NAME: xlsxgenerator
 permissions:
