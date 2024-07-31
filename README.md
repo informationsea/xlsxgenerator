@@ -1,4 +1,5 @@
 # xlsxgenerator
+[![Build](https://github.com/informationsea/xlsxgenerator/actions/workflows/rust.yml/badge.svg)](https://github.com/informationsea/xlsxgenerator/actions/workflows/rust.yml)
 
 Create Excel file from JSON/YAML based template
 
