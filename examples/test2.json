@@ -1,0 +1,33 @@
+{
+    "$schema": "../schema/xlsxgenerator.json",
+    "sheets": [
+        {
+            "source": [
+                {
+                    "file": "real-vcf/1kgp-jpt-tp53.snpeff.vcf.gz",
+                    "vcf-config": {
+                        "split-multi-allelic": true
+                    },
+                    "table-style-type-num": 11
+                }
+            ]
+        },
+        {
+            "source": [
+                {
+                    "file": "real-vcf/1kgp-jpt-tp53.snpeff.vcf.gz",
+                    "vcf-config": {
+                        "split-multi-allelic": true,
+                        "priority-info": [
+                            "AF"
+                        ],
+                        "priority-format": [
+                            "DP"
+                        ]
+                    },
+                    "table-style-type-num": 12
+                }
+            ]
+        }
+    ]
+}

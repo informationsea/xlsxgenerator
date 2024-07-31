@@ -1,0 +1,395 @@
+{
+    "$id": "https://informationsea.info/schema/xlsxgenerator",
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "type": "object",
+    "required": [
+        "sheets"
+    ],
+    "properties": {
+        "sheets": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/sheet"
+            }
+        }
+    },
+    "definitions": {
+        "column": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "row": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "border_type": {
+            "enum": [
+                "none",
+                "thin",
+                "medium",
+                "dashed",
+                "dotted",
+                "thick",
+                "double",
+                "hair",
+                "medium-dashed",
+                "dash-dot",
+                "medium-dash-dot",
+                "dash-dot-dot",
+                "medium-dash-dot-dot",
+                "slant-dash-dot"
+            ]
+        },
+        "border_format": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "$ref": "#/definitions/border_type"
+                },
+                "color": {
+                    "type": "string"
+                }
+            }
+        },
+        "format": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "font-name": {
+                    "type": "string"
+                },
+                "font-size": {
+                    "type": "number"
+                },
+                "font-color": {
+                    "type": "string"
+                },
+                "background-color": {
+                    "type": "string"
+                },
+                "num-format": {
+                    "type": "string"
+                },
+                "border": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/border_type"
+                        },
+                        {
+                            "$ref": "#/definitions/border_format"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/border_format"
+                            },
+                            "minItems": 1,
+                            "maxItems": 4
+                        }
+                    ]
+                }
+            }
+        },
+        "sheet": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Sheet name"
+                },
+                "source": {
+                    "oneOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/sheet_source"
+                            }
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "cells": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/cell"
+                    }
+                },
+                "freeze": {
+                    "type": "object",
+                    "properties": {
+                        "row": {
+                            "$ref": "#/definitions/row"
+                        },
+                        "column": {
+                            "$ref": "#/definitions/column"
+                        }
+                    }
+                },
+                "column-widths": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "minimum": 0
+                    }
+                },
+                "row-heights": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "minimum": 0
+                    }
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "file",
+                            "row",
+                            "column"
+                        ],
+                        "properties": {
+                            "file": {
+                                "type": "string"
+                            },
+                            "row": {
+                                "$ref": "#/definitions/row"
+                            },
+                            "column": {
+                                "$ref": "#/definitions/column"
+                            },
+                            "width-scale": {
+                                "type": "number",
+                                "minimum": 0
+                            },
+                            "height-scale": {
+                                "type": "number",
+                                "minimum": 0
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "cell_value": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "boolean"
+                },
+                {
+                    "type": "number"
+                }
+            ]
+        },
+        "cell_type": {
+            "description": "Cell Type",
+            "type": "string",
+            "enum": [
+                "string",
+                "number",
+                "percent",
+                "integer",
+                "datetime",
+                "formula",
+                "boolean",
+                "url",
+                "null"
+            ]
+        },
+        "cell": {
+            "description": "Cell Content",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+                "row": {
+                    "$ref": "#/definitions/row"
+                },
+                "column": {
+                    "$ref": "#/definitions/column"
+                },
+                "row-relative": {
+                    "type": "integer"
+                },
+                "column-relative": {
+                    "type": "integer"
+                },
+                "format": {
+                    "$ref": "#/definitions/format"
+                },
+                "value": {
+                    "$ref": "#/definitions/cell_value"
+                },
+                "type": {
+                    "$ref": "#/definitions/cell_type"
+                },
+                "comment": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "merge-row": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "merge-column": {
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "vcf_config": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "split-multi-allelic": {
+                    "type": "boolean"
+                },
+                "decode-genotype": {
+                    "type": "boolean"
+                },
+                "info": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "format": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "priority-info": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "priority-format": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "sheet_source": {
+            "description": "Sheet content source",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "start-row": {
+                    "$ref": "#/definitions/row"
+                },
+                "start-column": {
+                    "$ref": "#/definitions/column"
+                },
+                "vcf-config": {
+                    "$ref": "#/definitions/vcf_config"
+                },
+                "file": {
+                    "type": "string",
+                    "description": "File path of source file"
+                },
+                "data": {
+                    "type": "string"
+                },
+                "format": {
+                    "enum": [
+                        "CSV",
+                        "TSV",
+                        "VCF",
+                        "Auto"
+                    ]
+                },
+                "columns": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "format": {
+                                "$ref": "#/definitions/format"
+                            },
+                            "type": {
+                                "$ref": "#/definitions/cell_type"
+                            },
+                            "header-type": {
+                                "$ref": "#/definitions/cell_type"
+                            },
+                            "header-value": {
+                                "$ref": "#/definitions/cell_value"
+                            },
+                            "header-comment": {
+                                "type": "string"
+                            },
+                            "link-prefix": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "autofilter": {
+                    "type": "boolean"
+                },
+                "filter-list": {
+                    "description": "Auto filter condition",
+                    "type": "object",
+                    "required": [
+                        "column-header",
+                        "items"
+                    ],
+                    "properties": {
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1
+                        },
+                        "column-header": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "table": {
+                    "type": "boolean"
+                },
+                "table-style-type": {
+                    "enum": [
+                        "default",
+                        "light",
+                        "medium",
+                        "dark"
+                    ]
+                },
+                "table-style-type-num": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 28
+                },
+                "has-header": {
+                    "type": "boolean",
+                    "description": "First line is header"
+                },
+                "comment-line-prefix": {
+                    "type": "string",
+                    "maxLength": 1,
+                    "minLength": 1
+                }
+            }
+        }
+    }
+}

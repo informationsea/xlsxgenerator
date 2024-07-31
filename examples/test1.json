@@ -1,0 +1,239 @@
+{
+    "$schema": "../schema/xlsxgenerator.json",
+    "sheets": [
+        {
+            "name": "Sheet 1 (CSV)",
+            "source": [
+                {
+                    "file": "data/data1.csv",
+                    "columns": [
+                        {
+                            "type": "number",
+                            "header-comment": "header comment"
+                        },
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "number",
+                            "format": {
+                                "num-format": "0.00",
+                                "font-name": "Arial",
+                                "font-size": 20
+                            }
+                        },
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "start-row": 1,
+                    "start-column": 1,
+                    "table-style-type": "dark",
+                    "table-style-type-num": 2,
+                    "table": false,
+                    "filter-list": {
+                        "column-header": "Header B",
+                        "items": [
+                            "A",
+                            "C"
+                        ]
+                    }
+                }
+            ],
+            "cells": [
+                {
+                    "column": 0,
+                    "row": 0,
+                    "value": "Title",
+                    "format": {
+                        "font-name": "Arial",
+                        "font-color": "red",
+                        "background-color": "yellow",
+                        "font-size": 30,
+                        "border": "medium"
+                    },
+                    "comment": "Title comment"
+                }
+            ],
+            "column-widths": [
+                16,
+                10,
+                8
+            ]
+        },
+        {
+            "name": "Sheet 1 (TSV)",
+            "source": "data/data1.txt",
+            "freeze": {
+                "row": 1,
+                "column": 1
+            }
+        },
+        {
+            "name": "Cells",
+            "cells": [
+                {
+                    "column": 0,
+                    "row": 0,
+                    "value": "text",
+                    "type": "string"
+                },
+                {
+                    "column": 1,
+                    "row": 0,
+                    "value": 1.0,
+                    "type": "number",
+                    "comment": "Cell comment",
+                    "format": {
+                        "border": [
+                            {
+                                "type": "medium",
+                                "color": "red"
+                            },
+                            {
+                                "type": "dash-dot",
+                                "color": "blue"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "column": 2,
+                    "row": 0,
+                    "value": 2,
+                    "type": "number"
+                },
+                {
+                    "column": 3,
+                    "row": 0,
+                    "value": true,
+                    "type": "boolean"
+                },
+                {
+                    "column": 4,
+                    "row": 0,
+                    "value": null,
+                    "type": "null"
+                },
+                {
+                    "column": 0,
+                    "row": 1,
+                    "value": "https://www.google.co.jp",
+                    "type": "url",
+                    "merge-column": 3,
+                    "merge-row": 2
+                },
+                {
+                    "column": 0,
+                    "row": 4,
+                    "value": 10.5,
+                    "type": "percent"
+                },
+                {
+                    "column": 1,
+                    "row": 4,
+                    "value": "internal:'Kraken2'!A1"
+                },
+                {
+                    "column": 2,
+                    "row": 4,
+                    "value": "Kraken2",
+                    "url": "internal:'Kraken2'!A1"
+                }
+            ],
+            "images": [
+                {
+                    "file": "data/ginkaku.jpg",
+                    "column": 3,
+                    "row": 3,
+                    "height-scale": 0.3,
+                    "width-scale": 0.3
+                },
+                {
+                    "file": "data/kitsune.jpg",
+                    "column": 2,
+                    "row": 15
+                }
+            ],
+            "row-heights": [
+                28,
+                34,
+                62
+            ]
+        },
+        {
+            "name": "VCF Import 1",
+            "source": "vcf/simple1-snpeff.vcf"
+        },
+        {
+            "name": "VCF Import 2",
+            "source": [
+                {
+                    "file": "vcf/1kGP-subset-snpeff.vcf",
+                    "vcf-config": {
+                        "decode-genotype": true,
+                        "split-multi-allelic": true
+                    },
+                    "start-column": 1,
+                    "start-row": 1,
+                    "table": false,
+                    "filter-list": {
+                        "column-header": "SnpEff Impact",
+                        "items": [
+                            "LOW"
+                        ]
+                    }
+                }
+            ],
+            "freeze": {
+                "row": 2,
+                "column": 4
+            }
+        },
+        {
+            "source": [
+                {
+                    "data": "A\tB\nC\tD",
+                    "table-style-type": "light",
+                    "table-style-type-num": 20
+                }
+            ]
+        },
+        {
+            "name": "Relative Position",
+            "cells": [
+                {
+                    "value": "Relative Position",
+                    "row": 0,
+                    "column": 0
+                },
+                {
+                    "value": "A"
+                },
+                {
+                    "value": "B"
+                },
+                {
+                    "row-relative": 1,
+                    "value": "next line"
+                },
+                {
+                    "value": "C"
+                },
+                {
+                    "value": "D",
+                    "row-relative": 2,
+                    "column-relative": 3
+                },
+                {
+                    "value": "E",
+                    "row-relative": -1,
+                    "column-relative": -1
+                }
+            ]
+        }
+    ]
+}
