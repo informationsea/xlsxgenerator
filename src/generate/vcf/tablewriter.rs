@@ -5,6 +5,8 @@ use std::io::Write;
 use std::str;
 use xlsxwriter::worksheet::{WorksheetCol, WorksheetRow};
 
+const XLSX_MAX_ROW: WorksheetRow = 1048576;
+
 pub trait TableWriter {
     fn set_header(&mut self, items: &[String]);
     fn header(&self) -> &[String];
@@ -45,6 +47,10 @@ pub trait TableWriter {
     }
 
     fn column_widths(&mut self, widths: &[f64]) -> Result<()>;
+
+    fn is_next_row_allowed(&self) -> bool {
+        true
+    }
 }
 
 impl<T: TableWriter + ?Sized> TableWriter for Box<T> {
@@ -355,6 +361,10 @@ impl<'a, 'b> TableWriter for XlsxSheetWriter<'a, 'b> {
             )?;
         }
         Ok(())
+    }
+
+    fn is_next_row_allowed(&self) -> bool {
+        self.current_row < XLSX_MAX_ROW
     }
 }
 

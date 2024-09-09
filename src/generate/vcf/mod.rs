@@ -875,6 +875,11 @@ pub fn vcf2table<R: BufRead, W: TableWriter>(
 
         if config.split_multi_allelic {
             for (alt_index, _) in record.alternative.iter().enumerate() {
+                if !writer.is_next_row_allowed() {
+                    eprintln!("WARNING: The output of VCF table is truncated");
+                    return Ok(row_count);
+                }
+
                 setup_row(
                     group_name,
                     header_contents,
@@ -889,6 +894,11 @@ pub fn vcf2table<R: BufRead, W: TableWriter>(
                 row_count += 1;
             }
         } else {
+            if !writer.is_next_row_allowed() {
+                eprintln!("WARNING: The output of VCF table is truncated");
+                return Ok(row_count);
+            }
+
             setup_row(
                 group_name,
                 header_contents,
